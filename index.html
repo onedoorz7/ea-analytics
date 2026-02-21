@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Data analytics consulting for growing businesses. Turn your data into decisions with CRM analytics, marketing performance tracking, and custom dashboards.">
+    <title>EA Analytics — Data-Driven Growth for Your Business</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #ffffff;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a73e8;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            color: #1a1a1a;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: #1a73e8;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .cta-button:hover {
+            background: #1557b0;
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #1a1a1a;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .service-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #1a73e8;
+        }
+        
+        .service-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        /* How It Works */
+        .process {
+            padding: 80px 0;
+        }
+        
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .step {
+            text-align: center;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: #1a73e8;
+            color: white;
+            border-radius: 50%;
+            line-height: 50px;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .step h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+        
+        .step p {
+            color: #666;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-button-white {
+            display: inline-block;
+            padding: 16px 40px;
+            background: white;
+            color: #1a73e8;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+        
+        .cta-button-white:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid #eee;
+            color: #666;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">EA Analytics</div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Turn Your Data Into Decisions</h1>
+            <p>Data analytics consulting for growing businesses. Get clarity on what's working, what's not, and what to do next.</p>
+            <a href="mailto:info@ea-analytics.com?subject=Let's talk about analytics" class="cta-button">Get Started</a>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <h2 class="section-title">What I Do</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>📊 CRM & Sales Analytics</h3>
+                    <p>Understand your sales funnel, conversion rates, and where deals are getting stuck. Know exactly which activities drive revenue.</p>
+                </div>
+                <div class="service-card">
+                    <h3>💰 Marketing Performance</h3>
+                    <p>Track ROAS, CAC, and LTV across all channels. Find out what's working and what's burning money.</p>
+                </div>
+                <div class="service-card">
+                    <h3>👥 Cohort & Retention Analysis</h3>
+                    <p>See how customer behavior changes over time. Identify churn patterns and retention opportunities.</p>
+                </div>
+                <div class="service-card">
+                    <h3>📈 Custom Dashboards</h3>
+                    <p>Real-time KPIs that actually matter. No clutter, just the metrics that move your business forward.</p>
+                </div>
+                <div class="service-card">
+                    <h3>🎯 Data-Driven Strategy</h3>
+                    <p>Translate messy business questions into clear metrics. Get actionable insights, not just reports.</p>
+                </div>
+                <div class="service-card">
+                    <h3>🤝 Sales Process Coaching</h3>
+                    <p>Use data to improve your sales process. Train your team on what actually drives conversions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="process">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Discovery Call</h3>
+                    <p>We talk about your business, challenges, and what you need to know.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Data Audit</h3>
+                    <p>I review your existing data, tools, and processes.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Analysis & Insights</h3>
+                    <p>I dig into the data and find what's really going on.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Action Plan</h3>
+                    <p>You get a clear roadmap of what to do next, backed by data.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Make Better Decisions?</h2>
+            <p>Let's talk about your data. No commitment, just a conversation.</p>
+            <a href="mailto:info@ea-analytics.com?subject=Let's talk about analytics&body=Hi Elisha,%0D%0A%0D%0AI'd like to learn more about how data analytics can help my business.%0D%0A%0D%0AMy company:%0D%0AMy biggest challenge:%0D%0A%0D%0AThanks!" class="cta-button-white">Contact Me</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 EA Analytics. Data-driven growth for businesses that want clarity.</p>
+            <p><a href="mailto:info@ea-analytics.com" style="color: #1a73e8; text-decoration: none;">info@ea-analytics.com</a></p>
+        </div>
+    </footer>
+</body>
+</html>
