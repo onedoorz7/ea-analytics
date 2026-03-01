@@ -62,26 +62,7 @@
         
         .about-hero {
             padding: 60px 0 40px;
-        }
-        
-        .about-hero .container {
-            display: flex;
-            align-items: center;
-            gap: 60px;
-        }
-        
-        .about-hero-text {
-            flex: 1;
-        }
-        
-        .about-hero-image {
-            flex: 0 0 300px;
-        }
-        
-        .about-hero-image img {
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            text-align: center;
         }
         
         .about-hero h1 {
@@ -100,6 +81,14 @@
         
         .about-content {
             padding: 20px 0 80px;
+        }
+        
+        .profile-image {
+            float: right;
+            width: 200px;
+            margin: 0 0 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         
         .about-content h2 {
@@ -169,14 +158,11 @@
         }
         
         @media (max-width: 768px) {
-            .about-hero .container {
-                flex-direction: column;
-                gap: 30px;
-            }
-            
-            .about-hero-image {
-                flex: 0 0 200px;
-                order: -1;
+            .profile-image {
+                float: none;
+                display: block;
+                margin: 0 auto 20px;
+                width: 150px;
             }
             
             .about-hero h1 {
@@ -208,21 +194,17 @@
         </div>
     </header>
 
-    <div class="about-hero">
+    <section class="about-hero">
         <div class="container">
-            <div class="about-hero-text">
-                <h1>Hi, I'm Elisha</h1>
-                <p class="tagline">Building with depth in the age of speed.</p>
-            </div>
-            <div class="about-hero-image">
-                <img src="elisha.jpg" alt="Elisha Amir">
-            </div>
+            <h1>Hi, I'm Elisha</h1>
+            <p class="tagline">Building with depth in the age of speed.</p>
         </div>
-    </div>
+    </section>
 
     <section class="about-content">
         <div class="container">
             <h2>The Unconventional Path</h2>
+            <img src="elisha.jpg" alt="Elisha Amir" class="profile-image">
             <p>I'm what you might call a "late bloomer" — and I've learned that's actually an advantage.</p>
             
             <p>Before analytics, I worked in film production, coached football, and did youth work. I come from a creative household, and I've always been drawn to understanding how things work — systems, people, stories, data.</p>
