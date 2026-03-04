@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Find Your ICP Using Your Own Data | EA Analytics</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        :root {
+            --navy: #002366;
+            --navy-light: #003399;
+            --accent: #0066ff;
+            --green: #16a34a;
+            --blue: #2563eb;
+            --orange: #f59e0b;
+            --gray: #6b7280;
+            --gray-light: #f8f9fa;
+            --gray-200: #e5e7eb;
+            --text: #1f2937;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--text); line-height: 1.6; background: white; }
+
+        /* Print-friendly */
+        @media print {
+            body { font-size: 11pt; }
+            .hero { padding: 2rem !important; }
+            .container { max-width: 100%; padding: 0 1rem; }
+            .no-print { display: none; }
+            section { break-inside: avoid; page-break-inside: avoid; }
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: white; padding: 3rem 2rem; text-align: center;
+        }
+        .hero h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem; line-height: 1.2; }
+        .hero .subtitle { font-size: 1.1rem; opacity: 0.9; margin-bottom: 0.75rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .hero .byline { font-size: 0.85rem; opacity: 0.7; }
+        .hero .byline a { color: white; text-decoration: underline; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+        section { margin-bottom: 2.5rem; }
+        section h2 { font-size: 1.4rem; font-weight: 700; color: var(--navy); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+        section h2 .num { background: var(--navy); color: white; width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0; }
+        section p { font-size: 0.95rem; color: #374151; margin-bottom: 0.75rem; }
+
+        .problem-box {
+            background: #fef3c7; border-left: 4px solid var(--orange);
+            padding: 1.25rem 1.5rem; border-radius: 0 0.5rem 0.5rem 0;
+            font-size: 0.95rem;
+        }
+        .problem-box strong { color: #92400e; }
+
+        .approach-flow {
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+            flex-wrap: wrap; margin: 1.5rem 0; padding: 1rem;
+            background: var(--gray-light); border-radius: 0.75rem;
+        }
+        .approach-step {
+            background: white; border: 2px solid var(--navy);
+            padding: 0.6rem 1rem; border-radius: 0.5rem; font-weight: 600;
+            font-size: 0.85rem; text-align: center; color: var(--navy);
+        }
+        .approach-arrow { font-size: 1.2rem; color: var(--navy); }
+
+        .dimension-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
+            margin: 1rem 0;
+        }
+        @media (max-width: 600px) { .dimension-grid { grid-template-columns: 1fr; } }
+        .dim-card {
+            border: 1px solid var(--gray-200); border-radius: 0.75rem;
+            padding: 1rem 1.25rem; background: white;
+        }
+        .dim-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem; }
+        .dim-card .question { font-size: 0.85rem; color: var(--gray); font-style: italic; margin-bottom: 0.5rem; }
+        .dim-card .metrics {
+            display: flex; gap: 0.5rem; flex-wrap: wrap;
+        }
+        .metric-tag {
+            font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 1rem;
+            font-weight: 600;
+        }
+        .metric-tag.win { background: #dcfce7; color: #166534; }
+        .metric-tag.deal { background: #dbeafe; color: #1e40af; }
+
+        .pattern-list {
+            background: var(--gray-light); border-radius: 0.75rem;
+            padding: 1.25rem 1.5rem; margin: 1rem 0;
+        }
+        .pattern-list li {
+            font-size: 0.9rem; margin-bottom: 0.5rem; padding-left: 0.25rem;
+            list-style: none;
+        }
+        .pattern-list li::before { content: "💡 "; }
+
+        .consolidate-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+            border: 2px solid var(--blue); border-radius: 0.75rem;
+            padding: 1.25rem 1.5rem; margin: 1rem 0;
+        }
+        .tier-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+        .tier-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+        .tier-label { font-weight: 600; font-size: 0.9rem; min-width: 100px; }
+        .tier-desc { font-size: 0.85rem; color: var(--gray); }
+
+        .output-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem;
+            margin: 1rem 0;
+        }
+        @media (max-width: 600px) { .output-grid { grid-template-columns: 1fr; } }
+        .output-card {
+            background: var(--gray-light); border-radius: 0.5rem;
+            padding: 1rem; text-align: center;
+        }
+        .output-card .icon { font-size: 1.5rem; margin-bottom: 0.25rem; }
+        .output-card .label { font-size: 0.85rem; font-weight: 600; color: var(--navy); }
+        .output-card .desc { font-size: 0.8rem; color: var(--gray); }
+
+        .validate-steps {
+            display: flex; gap: 1rem; margin: 1rem 0; flex-wrap: wrap;
+        }
+        .v-step {
+            flex: 1; min-width: 200px; padding: 1rem;
+            border: 1px solid var(--gray-200); border-radius: 0.5rem;
+            text-align: center;
+        }
+        .v-step .v-icon { font-size: 1.3rem; margin-bottom: 0.25rem; }
+        .v-step h4 { font-size: 0.85rem; font-weight: 600; color: var(--navy); }
+        .v-step p { font-size: 0.8rem; color: var(--gray); }
+
+        .cta-footer {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: white; padding: 2rem; text-align: center; border-radius: 1rem;
+            margin-top: 2rem;
+        }
+        .cta-footer h2 { color: white; font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .cta-footer p { font-size: 0.95rem; opacity: 0.9; margin-bottom: 1rem; }
+        .cta-btn {
+            display: inline-block; background: white; color: var(--navy);
+            padding: 0.75rem 2rem; border-radius: 0.5rem; font-weight: 700;
+            text-decoration: none; font-size: 0.95rem;
+        }
+        .cta-footer .small { font-size: 0.75rem; opacity: 0.6; margin-top: 1rem; }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>How to Find Your Ideal Customer Profile<br>Using Your Own Data</h1>
+    <p class="subtitle">Stop guessing. Your CRM already knows who your best customers are.</p>
+    <p class="byline">Elisha Amir | <a href="https://ea-analytics.com">EA Analytics</a></p>
+</div>
+
+<div class="container">
+
+    <!-- THE PROBLEM -->
+    <section>
+        <div class="problem-box">
+            <strong>The problem:</strong> Most ICPs are based on gut feeling, copied from competitors, or defined once and never updated. Meanwhile, your CRM holds thousands of data points about who actually buys — and who doesn't. The answers are already there. You just haven't asked the right questions yet.
+        </div>
+    </section>
+
+    <!-- THE APPROACH -->
+    <section>
+        <h2>The Approach: Data-Driven ICP Discovery</h2>
+        <p>Start with your closed-won deals and work backwards. Analyze win rates and deal sizes across multiple dimensions. Let the data reveal who your best customers actually are — vs. who you <em>think</em> they are.</p>
+        <div class="approach-flow">
+            <div class="approach-step">Closed-Won<br>Deals</div>
+            <span class="approach-arrow">→</span>
+            <div class="approach-step">Analyze by<br>Dimension</div>
+            <span class="approach-arrow">→</span>
+            <div class="approach-step">Spot<br>Patterns</div>
+            <span class="approach-arrow">→</span>
+            <div class="approach-step">Define<br>Your ICP</div>
+            <span class="approach-arrow">→</span>
+            <div class="approach-step">Validate &<br>Iterate</div>
+        </div>
+    </section>
+
+    <!-- STEP 1 -->
+    <section>
+        <h2><span class="num">1</span> Analyze Win Rates by Dimension</h2>
+        <p>For each of these parameters, slice your deals and compare win rates and average deal sizes. The gaps will surprise you.</p>
+        <div class="dimension-grid">
+            <div class="dim-card">
+                <h3>🏢 Industry</h3>
+                <p class="question">Which verticals close at the highest rate? Which have the largest deals?</p>
+                <div class="metrics"><span class="metric-tag win">Win Rate</span><span class="metric-tag deal">Avg Deal Size</span></div>
+            </div>
+            <div class="dim-card">
+                <h3>📏 Company Size</h3>
+                <p class="question">What's the sweet spot? Too small = low value, too large = long cycles?</p>
+                <div class="metrics"><span class="metric-tag win">Win Rate</span><span class="metric-tag deal">Avg Deal Size</span></div>
+            </div>
+            <div class="dim-card">
+                <h3>👤 Job Title / Seniority</h3>
+                <p class="question">Who are the actual buyers? Directors? Engineers? C-suite?</p>
+                <div class="metrics"><span class="metric-tag win">Win Rate</span><span class="metric-tag deal">Conversion Speed</span></div>
+            </div>
+            <div class="dim-card">
+                <h3>🌍 Region</h3>
+                <p class="question">Where do you win most? Geographic patterns often surprise.</p>
+                <div class="metrics"><span class="metric-tag win">Win Rate</span><span class="metric-tag deal">Avg Deal Size</span></div>
+            </div>
+            <div class="dim-card">
+                <h3>🎯 Lead Source / Intent</h3>
+                <p class="question">Which sources produce customers, not just leads?</p>
+                <div class="metrics"><span class="metric-tag win">Win Rate</span><span class="metric-tag deal">Time to Close</span></div>
+            </div>
+            <div class="dim-card">
+                <h3>📡 Channel / First Touch</h3>
+                <p class="question">Direct vs. paid vs. organic — what actually converts?</p>
+                <div class="metrics"><span class="metric-tag win">Win Rate</span><span class="metric-tag deal">Cost per Win</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section>
+        <h2><span class="num">2</span> Spot the Patterns</h2>
+        <p>When you analyze the data across dimensions, clear patterns emerge:</p>
+        <ul class="pattern-list">
+            <li>Your top 3 industries may account for 70%+ of revenue</li>
+            <li>Mid-market companies often convert at 2-3x the rate of enterprise</li>
+            <li>Demo requests may close 5x better than whitepaper downloads</li>
+            <li>Certain regions consistently outperform — don't spread budget evenly</li>
+            <li>The "ideal buyer" title might not be who you expect</li>
+        </ul>
+    </section>
+
+    <!-- STEP 3 -->
+    <section>
+        <h2><span class="num">3</span> Consolidate Into Your ICP</h2>
+        <p>Combine the top-performing segments across all dimensions into a tiered definition:</p>
+        <div class="consolidate-box">
+            <div class="tier-row">
+                <div class="tier-dot" style="background: var(--green);"></div>
+                <span class="tier-label">Prime ICP</span>
+                <span class="tier-desc">Best-fit across most dimensions. Highest win rate, largest deals.</span>
+            </div>
+            <div class="tier-row">
+                <div class="tier-dot" style="background: var(--blue);"></div>
+                <span class="tier-label">Strong ICP</span>
+                <span class="tier-desc">Good fit. Strong on key dimensions, may miss on one or two.</span>
+            </div>
+            <div class="tier-row">
+                <div class="tier-dot" style="background: var(--orange);"></div>
+                <span class="tier-label">Acceptable</span>
+                <span class="tier-desc">Moderate fit. Worth pursuing but not prioritizing.</span>
+            </div>
+            <div class="tier-row">
+                <div class="tier-dot" style="background: var(--gray);"></div>
+                <span class="tier-label">Out of Scope</span>
+                <span class="tier-desc">Poor fit based on data. Deprioritize or auto-nurture.</span>
+            </div>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--gray);">This tiered ICP becomes the foundation for a lead scoring system you can implement directly in your CRM.</p>
+    </section>
+
+    <!-- STEP 4 -->
+    <section>
+        <h2><span class="num">4</span> Validate & Iterate</h2>
+        <p>Your ICP is a living document. It should get sharper over time.</p>
+        <div class="validate-steps">
+            <div class="v-step">
+                <div class="v-icon">🧪</div>
+                <h4>Test</h4>
+                <p>Score recent deals — does the ICP predict actual winners?</p>
+            </div>
+            <div class="v-step">
+                <div class="v-icon">🗣️</div>
+                <h4>Verify</h4>
+                <p>Ask your sales team: do the data patterns match their experience?</p>
+            </div>
+            <div class="v-step">
+                <div class="v-icon">🔄</div>
+                <h4>Refine</h4>
+                <p>Recalibrate quarterly as new deals close and the data grows.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT YOU GET -->
+    <section>
+        <h2>What You Get at the End</h2>
+        <div class="output-grid">
+            <div class="output-card">
+                <div class="icon">📋</div>
+                <div class="label">Documented ICP</div>
+                <div class="desc">Backed by data, not opinions</div>
+            </div>
+            <div class="output-card">
+                <div class="icon">⚙️</div>
+                <div class="label">Scoring System</div>
+                <div class="desc">Ready to implement in your CRM</div>
+            </div>
+            <div class="output-card">
+                <div class="icon">📊</div>
+                <div class="label">Quality Baseline</div>
+                <div class="desc">Measure marketing going forward</div>
+            </div>
+            <div class="output-card">
+                <div class="icon">🤝</div>
+                <div class="label">Shared Language</div>
+                <div class="desc">"This is a Prime lead" — sales + marketing aligned</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-footer">
+        <h2>Want help finding your ICP from your CRM data?</h2>
+        <p>I help B2B companies turn their CRM data into actionable ICP definitions and scoring systems.</p>
+        <a href="https://ea-analytics.com" class="cta-btn">Let's Talk →</a>
+        <p class="small">Elisha Amir | EA Analytics | ea-analytics.com</p>
+    </div>
+
+</div>
+
+</body>
+</html>

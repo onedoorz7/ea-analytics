@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The ICP Lead Scoring Framework | EA Analytics</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        :root {
+            --navy: #002366; --navy-light: #003399;
+            --green: #16a34a; --green-bg: #f0fdf4; --green-border: #bbf7d0;
+            --blue: #2563eb; --blue-bg: #eff6ff; --blue-border: #bfdbfe;
+            --orange: #f59e0b; --orange-bg: #fffbeb; --orange-border: #fde68a;
+            --gray: #6b7280; --gray-bg: #f9fafb; --gray-border: #e5e7eb;
+            --text: #1f2937; --gray-light: #f8f9fa;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--text); line-height: 1.6; background: white; }
+        @media print {
+            body { font-size: 11pt; }
+            .hero { padding: 2rem !important; }
+            .container { max-width: 100%; padding: 0 1rem; }
+            section { break-inside: avoid; page-break-inside: avoid; }
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: white; padding: 3rem 2rem; text-align: center;
+        }
+        .hero h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem; line-height: 1.2; }
+        .hero .subtitle { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto 0.75rem; }
+        .hero .byline { font-size: 0.85rem; opacity: 0.7; }
+        .hero .byline a { color: white; text-decoration: underline; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+        section { margin-bottom: 2.5rem; }
+        section h2 { font-size: 1.35rem; font-weight: 700; color: var(--navy); margin-bottom: 0.75rem; }
+        section p { font-size: 0.95rem; color: #374151; margin-bottom: 0.75rem; }
+
+        .problem-box {
+            background: #fef3c7; border-left: 4px solid var(--orange);
+            padding: 1.25rem 1.5rem; border-radius: 0 0.5rem 0.5rem 0;
+            font-size: 0.95rem;
+        }
+        .problem-box strong { color: #92400e; }
+
+        /* 6 Dimension Cards */
+        .dim-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.25rem 0; }
+        @media (max-width: 700px) { .dim-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 480px) { .dim-grid { grid-template-columns: 1fr; } }
+        .dim-card {
+            border: 1px solid var(--gray-border); border-radius: 0.75rem;
+            padding: 1.25rem; text-align: center; position: relative; overflow: hidden;
+        }
+        .dim-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: var(--navy);
+        }
+        .dim-card .icon { font-size: 1.5rem; margin-bottom: 0.25rem; }
+        .dim-card h3 { font-size: 0.9rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem; }
+        .dim-card .what { font-size: 0.8rem; color: var(--gray); margin-bottom: 0.5rem; }
+        .dim-card .how { font-size: 0.8rem; color: var(--text); background: var(--gray-light); border-radius: 0.4rem; padding: 0.4rem 0.6rem; }
+
+        .score-bar { display: flex; height: 10px; border-radius: 5px; overflow: hidden; margin: 0.5rem 0 0.25rem; }
+        .score-bar .high { background: var(--green); flex: 1; }
+        .score-bar .med { background: var(--blue); flex: 1; }
+        .score-bar .low { background: var(--orange); flex: 1; }
+        .score-labels { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--gray); }
+
+        /* Tier System */
+        .tier-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 1.25rem 0; }
+        @media (max-width: 600px) { .tier-cards { grid-template-columns: repeat(2, 1fr); } }
+        .tier-card {
+            border-radius: 0.75rem; padding: 1.25rem 1rem; text-align: center;
+            border: 2px solid;
+        }
+        .tier-card.prime { background: var(--green-bg); border-color: var(--green-border); }
+        .tier-card.strong { background: var(--blue-bg); border-color: var(--blue-border); }
+        .tier-card.acp { background: var(--orange-bg); border-color: var(--orange-border); }
+        .tier-card.oos { background: var(--gray-bg); border-color: var(--gray-border); }
+        .tier-card .tier-name { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .tier-card.prime .tier-name { color: var(--green); }
+        .tier-card.strong .tier-name { color: var(--blue); }
+        .tier-card.acp .tier-name { color: #b45309; }
+        .tier-card.oos .tier-name { color: var(--gray); }
+        .tier-card .tier-action { font-size: 0.8rem; color: var(--text); }
+        .tier-card .tier-time { font-size: 0.75rem; color: var(--gray); font-style: italic; margin-top: 0.25rem; }
+
+        /* Bonus Section */
+        .bonus-flow {
+            display: flex; align-items: center; justify-content: center; gap: 0;
+            margin: 1.25rem 0; flex-wrap: wrap;
+        }
+        .bonus-step {
+            text-align: center; padding: 0.75rem 1.25rem;
+            border: 2px solid var(--gray-border); position: relative;
+        }
+        .bonus-step:first-child { border-radius: 0.5rem 0 0 0.5rem; }
+        .bonus-step:last-child { border-radius: 0 0.5rem 0.5rem 0; }
+        .bonus-step .b-label { font-size: 0.85rem; font-weight: 700; color: var(--navy); }
+        .bonus-step .b-desc { font-size: 0.75rem; color: var(--gray); }
+        .bonus-step.active { background: var(--blue-bg); border-color: var(--blue); }
+        .bonus-arrow { font-size: 1rem; color: var(--navy); padding: 0 0.25rem; }
+
+        .insight-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+            border-left: 4px solid var(--blue); border-radius: 0 0.5rem 0.5rem 0;
+            padding: 1rem 1.25rem; margin: 1rem 0; font-size: 0.9rem;
+        }
+
+        /* Impact Checklist */
+        .impact-list { list-style: none; margin: 1rem 0; }
+        .impact-list li {
+            padding: 0.75rem 1rem; margin-bottom: 0.5rem;
+            background: var(--gray-light); border-radius: 0.5rem;
+            font-size: 0.9rem; display: flex; align-items: flex-start; gap: 0.5rem;
+        }
+        .impact-list .check { color: var(--green); font-weight: 700; font-size: 1.1rem; flex-shrink: 0; }
+
+        /* Worked Example */
+        .example-box {
+            background: var(--gray-light); border-radius: 0.75rem;
+            padding: 1.5rem; margin: 1rem 0;
+        }
+        .example-box h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.75rem; }
+        .example-row {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.4rem 0; border-bottom: 1px solid var(--gray-border);
+            font-size: 0.85rem;
+        }
+        .example-row:last-of-type { border-bottom: none; }
+        .example-dim { font-weight: 600; min-width: 110px; color: var(--navy); }
+        .example-val { flex: 1; color: #374151; }
+        .example-score {
+            font-weight: 700; min-width: 50px; text-align: center;
+            padding: 0.2rem 0.5rem; border-radius: 0.25rem; font-size: 0.8rem;
+        }
+        .example-score.high { background: var(--green-bg); color: var(--green); }
+        .example-score.med { background: var(--blue-bg); color: var(--blue); }
+        .example-result {
+            margin-top: 0.75rem; padding: 0.75rem; background: var(--green-bg);
+            border: 2px solid var(--green-border); border-radius: 0.5rem;
+            text-align: center; font-weight: 700; color: var(--green);
+        }
+
+        /* Refinement */
+        .refine-steps {
+            display: flex; gap: 1rem; margin: 1rem 0; flex-wrap: wrap;
+        }
+        .r-step { flex: 1; min-width: 180px; text-align: center; padding: 1rem; border: 1px solid var(--gray-border); border-radius: 0.5rem; }
+        .r-step .r-ver { font-weight: 800; color: var(--navy); font-size: 1.1rem; }
+        .r-step h4 { font-size: 0.85rem; font-weight: 600; color: var(--navy); margin: 0.25rem 0; }
+        .r-step p { font-size: 0.8rem; color: var(--gray); }
+
+        .cta-footer {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: white; padding: 2rem; text-align: center; border-radius: 1rem; margin-top: 2rem;
+        }
+        .cta-footer h2 { color: white; font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .cta-footer p { font-size: 0.95rem; opacity: 0.9; margin-bottom: 1rem; }
+        .cta-btn {
+            display: inline-block; background: white; color: var(--navy);
+            padding: 0.75rem 2rem; border-radius: 0.5rem; font-weight: 700;
+            text-decoration: none; font-size: 0.95rem;
+        }
+        .cta-footer .small { font-size: 0.75rem; opacity: 0.6; margin-top: 1rem; }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>The ICP Lead Scoring Framework</h1>
+    <p class="subtitle">Score every lead on 6 dimensions. Prioritize what matters. Close more deals.</p>
+    <p class="byline">Elisha Amir | <a href="https://ea-analytics.com">EA Analytics</a></p>
+</div>
+
+<div class="container">
+
+    <!-- PROBLEM -->
+    <section>
+        <div class="problem-box">
+            <strong>The problem:</strong> Most teams treat all leads equally. Your best reps waste hours on poor-fit leads while Prime ICPs wait in the queue. The fix: a data-driven scoring system that tells you <em>exactly</em> which leads deserve attention — built from your own CRM data.
+        </div>
+    </section>
+
+    <!-- 6 DIMENSIONS -->
+    <section>
+        <h2>The 6 Scoring Dimensions</h2>
+        <p>Every lead is scored across 6 dimensions. Each dimension gets weighted based on how strongly it predicts wins in <em>your</em> data.</p>
+        <div class="dim-grid">
+            <div class="dim-card">
+                <div class="icon">🏢</div>
+                <h3>Industry</h3>
+                <p class="what">Does the company operate in your target vertical?</p>
+                <div class="score-bar"><div class="high"></div><div class="med"></div><div class="low"></div></div>
+                <div class="score-labels"><span>High</span><span>Medium</span><span>Low</span></div>
+                <div class="how">Rank industries by historical win rate</div>
+            </div>
+            <div class="dim-card">
+                <div class="icon">📏</div>
+                <h3>Company Size</h3>
+                <p class="what">Is this company in your sweet spot range?</p>
+                <div class="score-bar"><div class="high"></div><div class="med"></div><div class="low"></div></div>
+                <div class="score-labels"><span>High</span><span>Medium</span><span>Low</span></div>
+                <div class="how">Map employee ranges to score tiers</div>
+            </div>
+            <div class="dim-card">
+                <div class="icon">👤</div>
+                <h3>Job Title</h3>
+                <p class="what">Is this person a decision-maker or influencer?</p>
+                <div class="score-bar"><div class="high"></div><div class="med"></div><div class="low"></div></div>
+                <div class="score-labels"><span>High</span><span>Medium</span><span>Low</span></div>
+                <div class="how">Score by role: buyer &gt; influencer &gt; end-user</div>
+            </div>
+            <div class="dim-card">
+                <div class="icon">🎯</div>
+                <h3>Intent / Lead Source</h3>
+                <p class="what">How strong is their buying signal?</p>
+                <div class="score-bar"><div class="high"></div><div class="med"></div><div class="low"></div></div>
+                <div class="score-labels"><span>High</span><span>Medium</span><span>Low</span></div>
+                <div class="how">Demo request &gt; trial &gt; content download</div>
+            </div>
+            <div class="dim-card">
+                <div class="icon">🌍</div>
+                <h3>Region</h3>
+                <p class="what">Are they in a market you can serve well?</p>
+                <div class="score-bar"><div class="high"></div><div class="med"></div><div class="low"></div></div>
+                <div class="score-labels"><span>High</span><span>Medium</span><span>Low</span></div>
+                <div class="how">Tier regions by win rate and deal size</div>
+            </div>
+            <div class="dim-card">
+                <div class="icon">📡</div>
+                <h3>Channel</h3>
+                <p class="what">How did they first find you?</p>
+                <div class="score-bar"><div class="high"></div><div class="med"></div><div class="low"></div></div>
+                <div class="score-labels"><span>High</span><span>Medium</span><span>Low</span></div>
+                <div class="how">Direct &gt; referral &gt; organic &gt; paid</div>
+            </div>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--gray);">The weights for each dimension come from your own win/loss data — not assumptions. Every business is different.</p>
+    </section>
+
+    <!-- 4 TIERS -->
+    <section>
+        <h2>The 4-Tier System</h2>
+        <p>Total score maps to a tier. Each tier triggers a different response from your team:</p>
+        <div class="tier-cards">
+            <div class="tier-card prime">
+                <div class="tier-name">🟢 Prime ICP</div>
+                <div class="tier-action">High-touch outreach. Best reps assigned.</div>
+                <div class="tier-time">Response: &lt; 1 hour</div>
+            </div>
+            <div class="tier-card strong">
+                <div class="tier-name">🔵 Strong ICP</div>
+                <div class="tier-action">Priority follow-up. Personal outreach.</div>
+                <div class="tier-time">Response: same day</div>
+            </div>
+            <div class="tier-card acp">
+                <div class="tier-name">🟠 ACP</div>
+                <div class="tier-action">Standard nurture. Automated sequence.</div>
+                <div class="tier-time">Response: 24-48 hours</div>
+            </div>
+            <div class="tier-card oos">
+                <div class="tier-name">⚫ Out of Scope</div>
+                <div class="tier-action">Auto-nurture or deprioritize.</div>
+                <div class="tier-time">Low priority</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BONUS SYSTEM -->
+    <section>
+        <h2>The Bonus System: Reward Engagement</h2>
+        <p>Demographics tell you who they are. Behavior tells you how serious they are. Leads earn <strong>bonus points</strong> as they move through your funnel:</p>
+        <div class="bonus-flow">
+            <div class="bonus-step">
+                <div class="b-label">Lead Created</div>
+                <div class="b-desc">Base score only</div>
+            </div>
+            <div class="bonus-step active">
+                <div class="b-label">Activated</div>
+                <div class="b-desc">+ Bonus</div>
+            </div>
+            <div class="bonus-step active">
+                <div class="b-label">Demo / Meeting</div>
+                <div class="b-desc">+ Bonus</div>
+            </div>
+            <div class="bonus-step active" style="border-color: var(--green); background: var(--green-bg);">
+                <div class="b-label">Product Qualified</div>
+                <div class="b-desc">+ Big Bonus</div>
+            </div>
+        </div>
+        <div class="insight-box">
+            <strong>Key insight:</strong> Product-qualified leads (PQLs) convert at dramatically higher rates than any other segment. Reward product engagement heavily in your scoring model — it's the strongest signal of buying intent.
+        </div>
+    </section>
+
+    <!-- IMMEDIATE IMPACT -->
+    <section>
+        <h2>Immediate Impact</h2>
+        <p>What changes the moment you implement lead scoring:</p>
+        <ul class="impact-list">
+            <li><span class="check">✓</span><div><strong>Team prioritizes differently.</strong> Each lead gets the attention it deserves — no more equal treatment for unequal leads. Your best reps focus on your best opportunities.</div></li>
+            <li><span class="check">✓</span><div><strong>Marketing measures quality, not just volume.</strong> Track what % of leads from each campaign are Prime or Strong ICP. Shift budget toward quality sources.</div></li>
+            <li><span class="check">✓</span><div><strong>The model improves over time.</strong> This is v1. As more deals close, win/loss data refines the weights. Add new dimensions. The system gets sharper every quarter.</div></li>
+        </ul>
+    </section>
+
+    <!-- WORKED EXAMPLE -->
+    <section>
+        <h2>Worked Example</h2>
+        <div class="example-box">
+            <h3>Scoring a lead: step by step</h3>
+            <div class="example-row">
+                <span class="example-dim">🏢 Industry</span>
+                <span class="example-val">Financial Services</span>
+                <span class="example-score high">High</span>
+            </div>
+            <div class="example-row">
+                <span class="example-dim">📏 Company Size</span>
+                <span class="example-val">1,000 - 5,000 employees</span>
+                <span class="example-score high">High</span>
+            </div>
+            <div class="example-row">
+                <span class="example-dim">👤 Job Title</span>
+                <span class="example-val">IT Infrastructure Manager</span>
+                <span class="example-score high">High</span>
+            </div>
+            <div class="example-row">
+                <span class="example-dim">🎯 Lead Source</span>
+                <span class="example-val">Free Trial Request</span>
+                <span class="example-score med">Medium</span>
+            </div>
+            <div class="example-row">
+                <span class="example-dim">🌍 Region</span>
+                <span class="example-val">United States</span>
+                <span class="example-score high">High</span>
+            </div>
+            <div class="example-row">
+                <span class="example-dim">📡 Channel</span>
+                <span class="example-val">Organic Search</span>
+                <span class="example-score med">Medium</span>
+            </div>
+            <div class="example-result">
+                Result: Prime ICP → Immediate high-touch outreach
+            </div>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--gray);">This scoring runs automatically on every lead. Zero manual effort after setup.</p>
+    </section>
+
+    <!-- REFINEMENT -->
+    <section>
+        <h2>The Refinement Loop</h2>
+        <p>Lead scoring is not set-and-forget. It's a living system that improves with data:</p>
+        <div class="refine-steps">
+            <div class="r-step">
+                <div class="r-ver">V1</div>
+                <h4>ICP Hypothesis</h4>
+                <p>Score based on what you know about your ideal customer today.</p>
+            </div>
+            <div class="r-step">
+                <div class="r-ver">V2</div>
+                <h4>Win/Loss Data</h4>
+                <p>Adjust weights based on which scored leads actually converted.</p>
+            </div>
+            <div class="r-step">
+                <div class="r-ver">V3</div>
+                <h4>Behavioral Signals</h4>
+                <p>Layer in product usage, engagement depth, and funnel velocity.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-footer">
+        <h2>Want this built for your CRM?</h2>
+        <p>I build custom lead scoring systems from your data — Salesforce, HubSpot, Pipedrive, or any CRM. The logic is universal.</p>
+        <a href="https://ea-analytics.com" class="cta-btn">Let's Talk →</a>
+        <p class="small">Elisha Amir | EA Analytics | ea-analytics.com</p>
+    </div>
+
+</div>
+
+</body>
+</html>
