@@ -260,136 +260,6 @@
             color: #374151;
         }
         
-        .comparison {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 20px;
-            align-items: center;
-            margin: 40px 0;
-        }
-        
-        .comp-card {
-            border-radius: 12px;
-            padding: 30px;
-            text-align: center;
-        }
-        
-        .comp-card.before {
-            background: #fef2f2;
-            border: 2px solid #fecaca;
-        }
-        
-        .comp-card.after {
-            background: #f0fdf4;
-            border: 2px solid #bbf7d0;
-        }
-        
-        .comp-card .label {
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 16px;
-        }
-        
-        .comp-card.before .label {
-            color: #dc2626;
-        }
-        
-        .comp-card.after .label {
-            color: #16a34a;
-        }
-        
-        .comp-card .percentage {
-            font-size: 48px;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-        
-        .comp-card.before .percentage {
-            color: #dc2626;
-        }
-        
-        .comp-card.after .percentage {
-            color: #16a34a;
-        }
-        
-        .comp-card .note {
-            font-size: 15px;
-            color: #6b7280;
-        }
-        
-        .comp-arrow {
-            font-size: 36px;
-            font-weight: 800;
-            color: #002366;
-        }
-        
-        .insight-box {
-            background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
-            border-left: 4px solid #2563eb;
-            padding: 24px;
-            margin: 30px 0;
-            border-radius: 4px;
-        }
-        
-        .application-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin: 40px 0;
-        }
-        
-        .app-card {
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 24px;
-            text-align: center;
-            background: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .app-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-        }
-        
-        .app-card:nth-child(1)::before {
-            background: #2563eb;
-        }
-        
-        .app-card:nth-child(2)::before {
-            background: #16a34a;
-        }
-        
-        .app-card:nth-child(3)::before {
-            background: #f59e0b;
-        }
-        
-        .app-card .icon {
-            font-size: 32px;
-            margin-bottom: 12px;
-        }
-        
-        .app-card h4 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #002366;
-            margin-bottom: 8px;
-        }
-        
-        .app-card p {
-            font-size: 15px;
-            color: #6b7280;
-            margin-bottom: 0;
-        }
-        
         /* Lead Magnet CTA Box */
         .lead-magnet {
             background: linear-gradient(135deg, #002366 0%, #001a4d 100%);
@@ -525,18 +395,6 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            .comparison {
-                grid-template-columns: 1fr;
-            }
-            
-            .comp-arrow {
-                transform: rotate(90deg);
-            }
-            
-            .application-grid {
-                grid-template-columns: 1fr;
-            }
-            
             .form-group {
                 flex-direction: column;
             }
@@ -613,24 +471,7 @@
                         </div>
                     </div>
                     
-                    <h3>Step 1: Score Every Lead</h3>
-                    <p>Apply your ICP scoring model across all 6 dimensions — Industry, Company Size, Job Title, Intent, Region, and Channel. Every lead gets a total score, plus bonus points for funnel engagement.</p>
-                    
-                    <h3>Step 2: Segment Into Tiers</h3>
-                    <p>Each scored lead falls into one of four tiers: <strong style="color: #16a34a;">Prime ICP</strong>, <strong style="color: #2563eb;">Strong ICP</strong>, <strong style="color: #b45309;">ACP</strong>, or <strong style="color: #6b7280;">Out of Scope</strong>. This converts a raw number into language your team can act on.</p>
-                    
-                    <h3>Step 3: Filter Out the Noise</h3>
-                    <p>Not all leads in your CRM are real opportunities. Remove:</p>
-                    <ul>
-                        <li><strong>Duplicates</strong> — Multiple contacts from the same org</li>
-                        <li><strong>Unqualified</strong> — Students, job seekers, wrong company type</li>
-                        <li><strong>Partners</strong> — Channel partners tracked separately</li>
-                        <li><strong>Community users</strong> — Free-tier accounts not sales-qualified</li>
-                    </ul>
-                    <p>This step often removes 50%+ of raw pipeline — and reveals the <em>true</em> quality picture.</p>
-                    
-                    <h3>Step 4: Track Quality Over Time</h3>
-                    <p>Monitor the tier distribution month over month. Is the share of Prime + Strong leads growing? This is your ongoing dashboard for marketing effectiveness.</p>
+                    <p>The key is separating signal from noise. Most CRMs are filled with duplicates, unqualified contacts, and non-sales entries that dilute your metrics. Filtering these out reveals the true quality picture.</p>
                     
                     <h2>Your North Star Metric</h2>
                     <p>Once you've scored, segmented, and filtered — you need one number to track:</p>
@@ -643,63 +484,26 @@
                     
                     <p>This single metric replaces "number of MQLs" as your marketing compass. It answers: <em>are we attracting the right people, or just more people?</em></p>
                     
-                    <h2>The Filtering Effect</h2>
-                    <p>When we applied this framework to a real dataset, the results were dramatic:</p>
+                    <h2>The Impact</h2>
+                    <p>When we applied this framework to a real dataset, filtering removed 50%+ of "leads" that were actually noise. The before/after comparison was dramatic — the marketing team's true performance was much stronger than raw numbers suggested.</p>
                     
-                    <div class="comparison">
-                        <div class="comp-card before">
-                            <div class="label">Before Filtering</div>
-                            <div class="percentage">~40%</div>
-                            <div class="note">Prime + Strong ICP</div>
-                        </div>
-                        <div class="comp-arrow">→</div>
-                        <div class="comp-card after">
-                            <div class="label">After Filtering</div>
-                            <div class="percentage">~80%</div>
-                            <div class="note">Prime + Strong ICP</div>
-                        </div>
-                    </div>
-                    
-                    <div class="insight-box">
-                        <strong>Key insight:</strong> A massive share of raw leads are noise — duplicates, partners, community users, and unqualified contacts. They dilute your quality metrics and hide real performance. Filtering reveals the truth: your marketing may be performing much better than the raw numbers suggest.
-                    </div>
-                    
-                    <h2>Three Ways to Use This</h2>
-                    <p>Once you have a quality score on every lead:</p>
-                    
-                    <div class="application-grid">
-                        <div class="app-card">
-                            <div class="icon">📊</div>
-                            <h4>Grade Your Campaigns</h4>
-                            <p>Which channels bring Prime ICP leads vs. volume fillers? Compare quality scores across all sources.</p>
-                        </div>
-                        <div class="app-card">
-                            <div class="icon">📈</div>
-                            <h4>Track Trends</h4>
-                            <p>Is lead quality improving quarter over quarter? Monthly tier distribution becomes your health dashboard.</p>
-                        </div>
-                        <div class="app-card">
-                            <div class="icon">💰</div>
-                            <h4>Allocate Budget</h4>
-                            <p>Shift spend toward sources producing Prime/Strong leads. Quality-adjusted ROI changes everything.</p>
-                        </div>
-                    </div>
+                    <p>With this system in place, they could finally grade campaigns by quality, track trends over time, and allocate budget based on which sources produced Prime and Strong ICP leads.</p>
                     
                     <!-- Lead Magnet: Full Framework -->
                     <div class="lead-magnet">
                         <h3>📥 Get the Complete Framework</h3>
-                        <p>Want the full methodology with filtering criteria, tracking templates, and campaign grading worksheets?</p>
+                        <p>Want the full methodology with detailed filtering criteria, before/after case study data, tracking templates, and campaign grading worksheets?</p>
                         
                         <ul>
-                            <li>Complete 4-step quality measurement process</li>
-                            <li>Filtering rules for noise removal</li>
-                            <li>Before/after case study with real data</li>
+                            <li>Complete 4-step quality measurement process with examples</li>
+                            <li>Detailed filtering rules for noise removal</li>
+                            <li>Before/after case study with real conversion data</li>
                             <li>Campaign quality grading system</li>
                             <li>Monthly tracking dashboard templates</li>
                         </ul>
                         
                         <form action="https://api.web3forms.com/submit" method="POST" class="email-form">
-                            <input type="hidden" name="access_key" value="b8e6e1bb-1e1d-41eb-861d-f3d8f0ff0eba">
+                            <input type="hidden" name="access_key" value="222acbc2-cfb5-4220-9954-fbd1d7c57043">
                             <input type="hidden" name="subject" value="Lead Quality Measurement Framework Request">
                             <input type="hidden" name="from_name" value="EA Analytics Website">
                             <input type="hidden" name="redirect" value="https://ea-analytics.com/downloads/lead-quality-measurement.html">
@@ -725,7 +529,6 @@
                         <li><strong>Volume is a vanity metric.</strong> 1,000 leads mean nothing if 800 are out of scope.</li>
                         <li><strong>Filtering changes everything.</strong> Most CRMs are 50%+ noise. Clean data reveals true performance.</li>
                         <li><strong>Track % Prime + Strong, not total lead count.</strong> This is your real marketing health metric.</li>
-                        <li><strong>Different channels have different quality profiles.</strong> Paid, organic, events, and partnerships all produce different ICP mixes.</li>
                     </ul>
                     
                 </div>

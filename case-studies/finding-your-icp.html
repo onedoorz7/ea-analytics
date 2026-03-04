@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Stop guessing your ICP. Your CRM already knows who your best customers are. Learn the data-driven process for finding your ideal customer profile.">
     <link rel="icon" type="image/jpeg" href="../logo.jpg">
@@ -211,82 +210,6 @@
             color: #002366;
         }
         
-        .dimension-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin: 40px 0;
-        }
-        
-        .dimension-card {
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 24px;
-            background: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        
-        .dimension-card h4 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #002366;
-            margin-bottom: 8px;
-        }
-        
-        .dimension-card .question {
-            font-size: 15px;
-            color: #6b7280;
-            font-style: italic;
-            margin-bottom: 12px;
-        }
-        
-        .dimension-card .metrics {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        
-        .metric-tag {
-            font-size: 12px;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-weight: 600;
-        }
-        
-        .metric-tag.win {
-            background: #dcfce7;
-            color: #166534;
-        }
-        
-        .metric-tag.deal {
-            background: #dbeafe;
-            color: #1e40af;
-        }
-        
-        .pattern-box {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 30px;
-            margin: 40px 0;
-        }
-        
-        .pattern-box ul {
-            list-style: none;
-            margin: 0;
-        }
-        
-        .pattern-box li {
-            padding-left: 30px;
-            position: relative;
-            margin-bottom: 12px;
-        }
-        
-        .pattern-box li:before {
-            content: "💡";
-            position: absolute;
-            left: 0;
-        }
-        
         .tier-system {
             background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
             border: 2px solid #2563eb;
@@ -338,38 +261,6 @@
         .tier-desc {
             font-size: 15px;
             color: #6b7280;
-        }
-        
-        .validation-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin: 40px 0;
-        }
-        
-        .validation-card {
-            text-align: center;
-            padding: 24px;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-        }
-        
-        .validation-card .icon {
-            font-size: 32px;
-            margin-bottom: 12px;
-        }
-        
-        .validation-card h4 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #002366;
-            margin-bottom: 8px;
-        }
-        
-        .validation-card p {
-            font-size: 14px;
-            color: #6b7280;
-            margin-bottom: 0;
         }
         
         /* Lead Magnet CTA Box */
@@ -503,14 +394,6 @@
                 font-size: 16px;
             }
             
-            .dimension-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .validation-grid {
-                grid-template-columns: 1fr;
-            }
-            
             .form-group {
                 flex-direction: column;
             }
@@ -562,7 +445,7 @@
                     <p>They needed a data-driven process to discover who their <em>actual</em> best customers were, not who they <em>thought</em> they should be targeting.</p>
                     
                     <h2>The Approach: Data-Driven ICP Discovery</h2>
-                    <p>We started with their closed-won deals and worked backwards. Analyze win rates and deal sizes across multiple dimensions. Let the data reveal the truth:</p>
+                    <p>We started with their closed-won deals and worked backwards. The goal: analyze win rates and deal sizes across multiple dimensions and let the data reveal the truth.</p>
                     
                     <div class="approach-flow">
                         <div class="approach-step">Closed-Won<br>Deals</div>
@@ -576,75 +459,22 @@
                         <div class="approach-step">Validate &<br>Iterate</div>
                     </div>
                     
-                    <h3>Step 1: Analyze Win Rates by Dimension</h3>
-                    <p>For each parameter, we sliced their deals and compared win rates and average deal sizes:</p>
+                    <h2>The 6 Dimensions</h2>
+                    <p>We analyzed their deals across six key dimensions:</p>
                     
-                    <div class="dimension-grid">
-                        <div class="dimension-card">
-                            <h4>🏢 Industry</h4>
-                            <p class="question">Which verticals close at the highest rate? Which have the largest deals?</p>
-                            <div class="metrics">
-                                <span class="metric-tag win">Win Rate</span>
-                                <span class="metric-tag deal">Avg Deal Size</span>
-                            </div>
-                        </div>
-                        <div class="dimension-card">
-                            <h4>📏 Company Size</h4>
-                            <p class="question">What's the sweet spot? Too small = low value, too large = long cycles?</p>
-                            <div class="metrics">
-                                <span class="metric-tag win">Win Rate</span>
-                                <span class="metric-tag deal">Avg Deal Size</span>
-                            </div>
-                        </div>
-                        <div class="dimension-card">
-                            <h4>👤 Job Title / Seniority</h4>
-                            <p class="question">Who are the actual buyers? Directors? Engineers? C-suite?</p>
-                            <div class="metrics">
-                                <span class="metric-tag win">Win Rate</span>
-                                <span class="metric-tag deal">Time to Close</span>
-                            </div>
-                        </div>
-                        <div class="dimension-card">
-                            <h4>🌍 Region</h4>
-                            <p class="question">Where do you win most? Geographic patterns often surprise.</p>
-                            <div class="metrics">
-                                <span class="metric-tag win">Win Rate</span>
-                                <span class="metric-tag deal">Avg Deal Size</span>
-                            </div>
-                        </div>
-                        <div class="dimension-card">
-                            <h4>🎯 Lead Source / Intent</h4>
-                            <p class="question">Which sources produce customers, not just leads?</p>
-                            <div class="metrics">
-                                <span class="metric-tag win">Win Rate</span>
-                                <span class="metric-tag deal">Time to Close</span>
-                            </div>
-                        </div>
-                        <div class="dimension-card">
-                            <h4>📡 Channel / First Touch</h4>
-                            <p class="question">Direct vs. paid vs. organic — what actually converts?</p>
-                            <div class="metrics">
-                                <span class="metric-tag win">Win Rate</span>
-                                <span class="metric-tag deal">Cost per Win</span>
-                            </div>
-                        </div>
-                    </div>
+                    <ul>
+                        <li><strong>Industry</strong> — Which verticals close at the highest rate? Which have the largest deals?</li>
+                        <li><strong>Company Size</strong> — What's the sweet spot? Too small = low value, too large = long cycles?</li>
+                        <li><strong>Job Title / Seniority</strong> — Who are the actual buyers? Directors? Engineers? C-suite?</li>
+                        <li><strong>Region</strong> — Where do you win most? Geographic patterns often surprise.</li>
+                        <li><strong>Lead Source / Intent</strong> — Which sources produce customers, not just leads?</li>
+                        <li><strong>Channel / First Touch</strong> — Direct vs. paid vs. organic — what actually converts?</li>
+                    </ul>
                     
-                    <h3>Step 2: Spot the Patterns</h3>
-                    <p>When you analyze the data across dimensions, clear patterns emerge:</p>
+                    <p>For each dimension, we calculated win rates and average deal sizes. The gaps between segments were dramatic — some performed 3-5x better than others.</p>
                     
-                    <div class="pattern-box">
-                        <ul>
-                            <li>Your top 3 industries may account for 70%+ of revenue</li>
-                            <li>Mid-market companies often convert at 2-3x the rate of enterprise</li>
-                            <li>Demo requests may close 5x better than whitepaper downloads</li>
-                            <li>Certain regions consistently outperform — don't spread budget evenly</li>
-                            <li>The "ideal buyer" title might not be who you expect</li>
-                        </ul>
-                    </div>
-                    
-                    <h3>Step 3: Consolidate Into Your ICP</h3>
-                    <p>We combined the top-performing segments across all dimensions into a tiered definition:</p>
+                    <h2>From Data to ICP</h2>
+                    <p>Once the patterns emerged, we consolidated the top-performing segments into a tiered ICP definition:</p>
                     
                     <div class="tier-system">
                         <div class="tier-row">
@@ -671,51 +501,26 @@
                     
                     <p><strong>Key insight:</strong> This tiered ICP becomes the foundation for a lead scoring system you can implement directly in your CRM.</p>
                     
-                    <h3>Step 4: Validate & Iterate</h3>
-                    <p>Your ICP is a living document. It should get sharper over time:</p>
+                    <h2>The Impact</h2>
+                    <p>With a data-driven ICP in hand, marketing could finally target the right personas in the right industries. Sales knew which leads to prioritize. And the company had a shared language — "This is a Prime lead" — that aligned both teams around the same definition of quality.</p>
                     
-                    <div class="validation-grid">
-                        <div class="validation-card">
-                            <div class="icon">🧪</div>
-                            <h4>Test</h4>
-                            <p>Score recent deals — does the ICP predict actual winners?</p>
-                        </div>
-                        <div class="validation-card">
-                            <div class="icon">🗣️</div>
-                            <h4>Verify</h4>
-                            <p>Ask your sales team: do the data patterns match their experience?</p>
-                        </div>
-                        <div class="validation-card">
-                            <div class="icon">🔄</div>
-                            <h4>Refine</h4>
-                            <p>Recalibrate quarterly as new deals close and the data grows.</p>
-                        </div>
-                    </div>
-                    
-                    <h2>What You Get</h2>
-                    <p>At the end of this process:</p>
-                    <ul>
-                        <li><strong>Documented ICP</strong> — Backed by data, not opinions</li>
-                        <li><strong>Scoring System</strong> — Ready to implement in your CRM</li>
-                        <li><strong>Quality Baseline</strong> — Measure marketing performance going forward</li>
-                        <li><strong>Shared Language</strong> — "This is a Prime lead" — sales + marketing aligned</li>
-                    </ul>
+                    <p>Most importantly, the ICP wasn't static. They reviewed it quarterly as new deals closed, refining the model based on actual outcomes.</p>
                     
                     <!-- Lead Magnet: Full Framework -->
                     <div class="lead-magnet">
                         <h3>📥 Get the Complete ICP Discovery Guide</h3>
-                        <p>Want the full methodology with analysis templates, validation checklists, and real examples?</p>
+                        <p>Want the full methodology with detailed analysis templates, pattern recognition guide, validation checklists, and real examples?</p>
                         
                         <ul>
-                            <li>Complete 6-dimension analysis framework</li>
-                            <li>Win rate and deal size calculation templates</li>
-                            <li>Pattern recognition guide</li>
+                            <li>Complete 6-dimension analysis framework with calculation templates</li>
+                            <li>Win rate and deal size analysis worksheets</li>
+                            <li>Pattern recognition guide with real data examples</li>
                             <li>4-tier ICP consolidation worksheet</li>
-                            <li>Validation and iteration process</li>
+                            <li>Validation and quarterly iteration process</li>
                         </ul>
                         
                         <form action="https://api.web3forms.com/submit" method="POST" class="email-form">
-                            <input type="hidden" name="access_key" value="b8e6e1bb-1e1d-41eb-861d-f3d8f0ff0eba">
+                            <input type="hidden" name="access_key" value="222acbc2-cfb5-4220-9954-fbd1d7c57043">
                             <input type="hidden" name="subject" value="ICP Discovery Framework Request">
                             <input type="hidden" name="from_name" value="EA Analytics Website">
                             <input type="hidden" name="redirect" value="https://ea-analytics.com/downloads/finding-your-icp.html">
@@ -740,7 +545,6 @@
                     <ul>
                         <li><strong>Your CRM knows your ICP better than you do.</strong> The data doesn't lie about who actually converts.</li>
                         <li><strong>ICP discovery is a process, not a brainstorm.</strong> It takes analysis, not assumptions.</li>
-                        <li><strong>Win rate > deal size.</strong> A $20K deal that closes 80% of the time beats a $50K deal that closes 15% of the time.</li>
                         <li><strong>Your ICP should evolve.</strong> Review quarterly as you collect more data and close more deals.</li>
                     </ul>
                     
